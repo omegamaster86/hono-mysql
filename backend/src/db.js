@@ -1,19 +1,18 @@
-// db.js (ESモジュール形式)
 import mysql from 'mysql2';
 
 const connection = mysql.createConnection({
-    host: 'localhost',        // データベースのホスト名
-    user: 'your_username',    // ユーザー名
-    password: 'your_password',// パスワード
-    database: 'your_database' // データベース名
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || ''
 });
 
 connection.connect((err) => {
-    if (err) {
-        console.error('データベース接続エラー:', err.stack);
-        process.exit(1); // エラー発生時にプロセス終了
-    }
-    console.log('データベースに接続しました。');
+  if (err) {
+    console.error('データベース接続エラー:', err.stack);
+    process.exit(1);
+  }
+  console.log('データベースに接続しました。');
 });
 
 export default connection;
