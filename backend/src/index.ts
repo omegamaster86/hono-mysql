@@ -4,9 +4,9 @@ import connection from './db.js'
 
 const app = new Hono()
 
-app.get('/users', (c) => {
+app.get('/', (c) => {
   return new Promise((resolve, reject) => {
-    connection.query('SELECT * FROM users', (err, results) => {
+    connection.query('SELECT * FROM t_users', (err, results) => {
       if (err) {
         console.error('クエリエラー:', err)
         return reject(c.text('エラーが発生しました', 500))
@@ -14,10 +14,6 @@ app.get('/users', (c) => {
       resolve(c.json(results))
     })
   })
-})
-
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
 })
 
 serve({
